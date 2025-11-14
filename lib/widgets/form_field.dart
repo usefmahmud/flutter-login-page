@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
 
 class CustomFormField extends StatelessWidget {
+  final TextEditingController? controller;
+
+  final String labelText;
+  final String? Function(String?)? validator;
+  final bool? obscureText;
+
   const CustomFormField({
     super.key,
     this.controller,
@@ -8,12 +14,6 @@ class CustomFormField extends StatelessWidget {
     this.validator,
     this.obscureText,
   });
-
-  final TextEditingController? controller;
-
-  final String labelText;
-  final String? Function(String?)? validator;
-  final bool? obscureText;
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +32,7 @@ class CustomFormField extends StatelessWidget {
             }
             return null;
           },
+      autovalidateMode: AutovalidateMode.onUserInteraction,
     );
   }
 }

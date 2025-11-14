@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:login_page/utils/show_alert.dart';
 import 'form_field.dart';
 
 class RegistrationForm extends StatefulWidget {
@@ -14,6 +15,17 @@ class _RegistrationFormState extends State<RegistrationForm> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmController = TextEditingController();
+
+  void _submit() {
+    if (_formKey.currentState!.validate()) {
+      showAlertDialog(
+        context,
+        title: 'Registered successfully',
+        message: 'Welcome, ${_nameController.text}!',
+        onConfirm: () => {},
+      );
+    }
+  }
 
   String? _validateName(String? v) {
     if (v == null || v.trim().isEmpty) return 'Please enter your name';
@@ -77,8 +89,8 @@ class _RegistrationFormState extends State<RegistrationForm> {
             SizedBox(
               width: double.infinity,
               child: ElevatedButton(
+                onPressed: _submit,
                 child: const Text('Register'),
-                onPressed: () => {},
               ),
             ),
           ],
