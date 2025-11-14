@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:login_page/utils/show_alert.dart';
+import 'package:login_page/widgets/gender_select.dart';
 import 'form_field.dart';
 
 class RegistrationForm extends StatefulWidget {
@@ -15,6 +16,8 @@ class _RegistrationFormState extends State<RegistrationForm> {
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmController = TextEditingController();
+  final List<String> _genders = ['Male', 'Female', 'Other'];
+  String? _selectedGender;
 
   void _submit() {
     if (_formKey.currentState!.validate()) {
@@ -84,6 +87,37 @@ class _RegistrationFormState extends State<RegistrationForm> {
               labelText: 'Confirm password',
               obscureText: true,
               validator: _validateConfirm,
+            ),
+            FormField<String>(
+              initialValue: _selectedGender,
+              validator: (v) =>
+                  v == null || v.isEmpty ? 'Please select a gender' : null,
+              builder: (state) {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    GenderSelect(
+                      selectedGender: state.value,
+                      onChanged: (value) {
+                        // update FormField state and local state for the form
+                        state.didChange(value);
+                        setState(() => _selectedGender = value);
+                      },
+                    ),
+                    if (state.hasError)
+                      Padding(
+                        padding: const EdgeInsets.only(left: 12.0, top: 6.0),
+                        child: Text(
+                          state.errorText ?? '',
+                          style: TextStyle(
+                            color: Theme.of(context).colorScheme.error,
+                            fontSize: 12,
+                          ),
+                        ),
+                      ),
+                  ],
+                );
+              },
             ),
             const SizedBox(height: 20),
             SizedBox(
