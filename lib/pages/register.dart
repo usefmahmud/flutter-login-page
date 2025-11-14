@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:login_page/widgets/registration_form.dart';
 
 class RegisterPage extends StatelessWidget {
   const RegisterPage({super.key});
@@ -6,8 +7,14 @@ class RegisterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Register Page')),
-      body: const Center(child: Text('Welcome to the Register Page!')),
+      appBar: AppBar(
+        title: const Text(
+          'Register Page',
+          style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
+        ),
+        backgroundColor: Colors.blueGrey,
+      ),
+      body: RegistrationForm(),
     );
   }
 }
